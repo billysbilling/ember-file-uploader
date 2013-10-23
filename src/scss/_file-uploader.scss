@@ -1,0 +1,113 @@
+@mixin file-uploader {
+    $filelist-space: 5px;
+    
+    .file-uploader {
+    
+        .upload-button {
+            &.hidden {
+                display: none;
+            }
+            
+            .file-uploader-input-parent {
+                float: left;
+            }
+            
+            .drag-tip {
+                float: left;
+                margin-left: 5px;
+                font-size: $small-font-size;
+                color: $blue-gray-light;
+            }
+        }
+        
+    }
+    
+    .file-list {
+        > div {
+            @include display-flex;
+            &:not(:last-of-type) {
+                margin-bottom: $filelist-space;
+            }
+        }
+        
+        .icon {
+            margin-right: $tight-standard-padding;
+            width: $line-height;
+            height: $line-height;
+        }
+    
+        .filename {
+            @include flex(1);
+            margin-right: $tight-standard-padding;
+            
+            @include ellipsis;
+        }
+    
+        .cancel {
+            .tool {
+                display: block;
+            }
+        }
+    }
+    
+    
+    .file-uploader-input-parent {
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+        .button {
+            position: relative;
+            z-index: 1;
+        }
+    }
+    .file-uploader-input {
+        cursor: pointer;
+        position: absolute;
+        z-index: 2;
+        top: 0px;
+        right: 0px;
+        @include opacity(0);
+        width: 1000px; //Make it go all the way to the left, since the button's cursor can't be styled.
+        height: 100%;
+        cursor: pointer;
+    }
+    
+    .file-uploader-overlay {
+        background: rgba($blue-gray-dark, 0.8);
+        display: none;
+        position: absolute;
+        z-index: 5000;
+        overflow: hidden;
+        
+        &.hover {
+            @include background(radial-gradient(rgba($blue-gray-dark, 0.4), rgba($blue-gray-dark, 0.8)));
+        }
+    
+        .content {
+            $drop-tip-height: 70px;
+            $escape-tip-height: $line-height;
+            
+            position: absolute;
+            top: 50%;
+            left: 0px;
+            width: 100%;
+            text-align: center;
+            padding: 0px 10px;
+            margin-top: -1 * ($drop-tip-height + $escape-tip-height) / 2;
+            color: #fff;
+            
+            .drop-tip {
+                font-size: 60px;
+                font-weight: 200;
+                line-height: $drop-tip-height;
+                @include ellipsis;
+            }
+            
+            .escape-tip {
+                font-weight: 600;
+                line-height: $escape-tip-height;
+                @include ellipsis;
+            }
+        }
+    }
+}

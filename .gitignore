@@ -1,0 +1,8 @@
+.DS_Store
+/.sass-cache
+/.idea
+/billy_builder.json
+/bower_components
+/node_modules
+/dist
+/temp

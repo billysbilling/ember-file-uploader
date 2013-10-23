@@ -1,0 +1,4 @@
+@import "style-guide/src/scss/style-guide";
+@import "file-uploader";
+
+@include file-uploader();

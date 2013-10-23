@@ -1,0 +1,19 @@
+{{#unless batch}}
+    {{#if queue.length}}
+        <div class="file-list">
+            {{#each item in queue}}
+                {{view queueItemViewClass contentBinding="item"}}
+            {{/each}}
+        </div>
+    {{/if}}
+{{/unless}}
+
+<div {{bindAttr class=":upload-button uploadButtonIsVisible::hidden"}}>
+    <div class="file-uploader-input-parent">
+        <button {{bindAttr class=":button buttonStyle buttonSize"}}>{{buttonText}}</button>
+    </div>
+    {{#if allowDrag}}
+        <div class="drag-tip">{{dragTip}}</div>
+    {{/if}}
+    <div class="clear"></div>
+</div>

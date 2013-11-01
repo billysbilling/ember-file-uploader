@@ -1,3 +1,5 @@
+var i18n = require('i18n').module('ember_file_uploader', require.resolve('../locales'));
+
 module.exports = Em.Object.extend(Em.Evented, {
     fileUploader: null,
     file: null,
@@ -79,7 +81,7 @@ module.exports = Em.Object.extend(Em.Evented, {
     handleError: function(message) {
         this.set('isFailed', true);
         this.set('isTransferring', false);
-        this.set('error', message || t('file_uploader.upload_failed'));
+        this.set('error', message || i18n.t('file_uploader.upload_failed'));
         this.trigger('error');
     },
 

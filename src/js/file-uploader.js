@@ -1,4 +1,5 @@
-var QueueItem = require('./queue-item'),
+var i18n = require('i18n').module('ember_file_uploader', require.resolve('../locales')),
+    QueueItem = require('./queue-item'),
     manager = require('./manager');
 
 module.exports = Ember.Component.extend({
@@ -12,13 +13,13 @@ module.exports = Ember.Component.extend({
     url: '/files',
 
     allowDrag: true,
-    dragTip: Em.I18n.tProperty('dragTip', t('file_uploader.or_drag_and_drop')),
-    dropTip: Em.I18n.tProperty('dropTip', t('file_uploader.drop_files_here')),
+    dragTip: i18n.tProperty('dragTip', i18n.t('file_uploader.or_drag_and_drop')),
+    dropTip: i18n.tProperty('dropTip', i18n.t('file_uploader.drop_files_here')),
     dropSelector: null,
 
     inputSelector: null,
-    buttonText: Em.I18n.tProperty('buttonText', function() {
-        return this.get('multiple') ? t('file_uploader.select_files') : t('file_uploader.select_file');
+    buttonText: i18n.tProperty('buttonText', function() {
+        return this.get('multiple') ? i18n.t('file_uploader.select_files') : i18n.t('file_uploader.select_file');
     }).property('multiple'),
     buttonStyle: null,
     buttonSize: 'small',
@@ -101,7 +102,7 @@ module.exports = Ember.Component.extend({
                 '<div class="file-uploader-overlay">'+
                     '<div class="content">'+
                     '<div class="drop-tip">'+this.get('dropTip')+'</div>'+
-                    '<div class="escape-tip">'+t('file_uploader.escape_tip')+'</div>'+
+                    '<div class="escape-tip">'+i18n.t('file_uploader.escape_tip')+'</div>'+
                     '</div>'+
                     '</div>'
             );
@@ -243,3 +244,5 @@ module.exports = Ember.Component.extend({
 });
 
 module.exports.Batch = require('./batch');
+
+module.exports.lang = i18n.lang;

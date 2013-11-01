@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "ember": "billysbilling/bower-ember#master",
+    "i18n": "billysbilling/i18n#master",
     "style-guide": "billysbilling/style-guide#master"
   }
 }

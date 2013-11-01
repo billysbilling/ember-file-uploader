@@ -1,0 +1,9 @@
+{
+    "file_uploader.cancel_upload": "Cancel upload",
+    "file_uploader.drop_files_here": "Drop files here to upload",
+    "file_uploader.escape_tip": "Press Escape to cancel",
+    "file_uploader.or_drag_and_drop": " - or drag and drop a file here",
+    "file_uploader.select_file": "Select file",
+    "file_uploader.select_files": "Select files",
+    "file_uploader.upload_failed": "Something went wrong during the upload. Please try again."
+}

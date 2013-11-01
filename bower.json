@@ -2,9 +2,13 @@
   "name": "ember-file-uploader",
   "version": "0.1.0",
   "homepage": "https://github.com/billysbilling/ember-file-uploader",
-  "main": "src/js/file-uploader.js",
+  "main": "src/js/file-uploader.js","billy-builder": {
   "billy-builder": {
-    "include": ["src/js", "src/templates"]
+    "include": [
+      "src/js",
+      "src/locales",
+      "src/templates"
+    ]
   },
   "license": "MIT",
   "ignore": [

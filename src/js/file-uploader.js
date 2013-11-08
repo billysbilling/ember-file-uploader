@@ -1,6 +1,7 @@
 var i18n = require('i18n').module('ember_file_uploader', require.resolve('../locales')),
     QueueItem = require('./queue-item'),
-    manager = require('./manager');
+    manager = require('./manager'),
+    config = require('./config');
 
 module.exports = Ember.Component.extend({
     template: require('../templates/file-uploader'),
@@ -100,11 +101,11 @@ module.exports = Ember.Component.extend({
             var dropTarget = this.getDropTarget();
             dropTarget.append(
                 '<div class="file-uploader-overlay">'+
-                    '<div class="content">'+
-                    '<div class="drop-tip">'+this.get('dropTip')+'</div>'+
-                    '<div class="escape-tip">'+i18n.t('file_uploader.escape_tip')+'</div>'+
-                    '</div>'+
-                    '</div>'
+                '<div class="content">'+
+                '<div class="drop-tip">'+this.get('dropTip')+'</div>'+
+                '<div class="escape-tip">'+i18n.t('file_uploader.escape_tip')+'</div>'+
+                '</div>'+
+                '</div>'
             );
             overlay = dropTarget.find(' > .file-uploader-overlay');
             this.set('dropOverlay', overlay);
@@ -246,3 +247,13 @@ module.exports = Ember.Component.extend({
 module.exports.Batch = require('./batch');
 
 module.exports.lang = i18n.lang;
+
+module.exports.setHeader = function(key, value) {
+    config.headers[key] = value;
+};
+module.exports.clearHeader = function(key) {
+    delete(config.headers[key]);
+};
+module.exports.clearHeaders = function() {
+    config.headers = {};
+};

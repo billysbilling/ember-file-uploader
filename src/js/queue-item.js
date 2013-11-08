@@ -1,4 +1,5 @@
-var i18n = require('i18n').module('ember_file_uploader', require.resolve('../locales'));
+var i18n = require('i18n').module('ember_file_uploader', require.resolve('../locales')),
+    config = require('./config');
 
 module.exports = Em.Object.extend(Em.Evented, {
     fileUploader: null,
@@ -16,7 +17,8 @@ module.exports = Em.Object.extend(Em.Evented, {
     upload: function() {
         var file = this.get('file'),
             url = BD.url(this.get('fileUploader.url')),
-            uploadRequest = new FileUploadRequest('POST', url, file);
+            uploadRequest = new FileUploadRequest('POST', url, file),
+            additionalHeaders = config.headers;
         this.set('isTransferring', true);
         this.set('uploadRequest', uploadRequest);
         uploadRequest.on('readystatechange', Billy.proxy(this.onReadyStateChange, this));
@@ -26,6 +28,11 @@ module.exports = Em.Object.extend(Em.Evented, {
         uploadRequest.setRequestHeader('X-Filename', file.name);
         uploadRequest.setRequestHeader('X-File-Size', file.size);
         uploadRequest.setRequestHeader('X-Thumbnail-Names', this.get('fileUploader.thumbnailNames'));
+        for (var k in additionalHeaders) {
+            if (additionalHeaders.hasOwnProperty(k)) {
+                uploadRequest.setRequestHeader(k, additionalHeaders[k]);
+            }
+        }
         uploadRequest.send();
     },
     onReadyStateChange: function() {

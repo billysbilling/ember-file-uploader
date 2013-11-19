@@ -1,9 +1,9 @@
 {
-    "file_uploader.cancel_upload": "Annuller upload",
-    "file_uploader.drop_files_here": "Slip filer her for at uploade",
-    "file_uploader.escape_tip": "Tryk Escape for at annullere",
-    "file_uploader.or_drag_and_drop": "- eller træk og slip en fil her",
-    "file_uploader.select_file": "Vælg fil",
-    "file_uploader.select_files": "Vælg filer",
-    "file_uploader.upload_failed": "Der gik nogen galt med at uploade din fil. Prøv venligst igen."
+    "cancel_upload": "Annuller upload",
+    "drop_files_here": "Slip filer her for at uploade",
+    "escape_tip": "Tryk Escape for at annullere",
+    "or_drag_and_drop": "- eller træk og slip en fil her",
+    "select_file": "Vælg fil",
+    "select_files": "Vælg filer",
+    "upload_failed": "Der gik nogen galt med at uploade din fil. Prøv venligst igen."
 }

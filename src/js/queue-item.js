@@ -41,7 +41,7 @@ module.exports = Em.Object.extend(Em.Evented, {
             var uploadRequest = self.get('uploadRequest'),
                 payload,
                 file;
-            if (uploadRequest.readyState == 4) {
+            if (uploadRequest.readyState === 4) {
                 try {
                     payload = $.parseJSON(uploadRequest.responseText);
                 } catch(exception) {
@@ -49,14 +49,14 @@ module.exports = Em.Object.extend(Em.Evented, {
                 }
                 if (!payload) {
                     self.handleError();
-                } else if (uploadRequest.status == 200) {
+                } else if (uploadRequest.status === 200) {
                     if (payload.files && payload.files.length) {
                         file = BD.store.load(Billy.File, payload.files[0]);
                     }
                     self.set('isCompleted', true);
                     self.trigger('upload', file, payload);
                     self.trigger('done', self);
-                } else if (uploadRequest.status == 422) {
+                } else if (uploadRequest.status === 422) {
                     self.handleError(payload.errorMessage);
                 } else {
                     self.handleError();
@@ -88,7 +88,7 @@ module.exports = Em.Object.extend(Em.Evented, {
     handleError: function(message) {
         this.set('isFailed', true);
         this.set('isTransferring', false);
-        this.set('error', message || i18n.t('file_uploader.upload_failed'));
+        this.set('error', message || i18n.t('upload_failed'));
         this.trigger('error');
     },
 

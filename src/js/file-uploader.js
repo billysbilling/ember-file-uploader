@@ -14,13 +14,13 @@ module.exports = Ember.Component.extend({
     url: '/files',
 
     allowDrag: true,
-    dragTip: i18n.tProperty('dragTip', i18n.t('file_uploader.or_drag_and_drop')),
-    dropTip: i18n.tProperty('dropTip', i18n.t('file_uploader.drop_files_here')),
+    dragTip: i18n.tProperty('dragTip', i18n.t('or_drag_and_drop')),
+    dropTip: i18n.tProperty('dropTip', i18n.t('drop_files_here')),
     dropSelector: null,
 
     inputSelector: null,
     buttonText: i18n.tProperty('buttonText', function() {
-        return this.get('multiple') ? i18n.t('file_uploader.select_files') : i18n.t('file_uploader.select_file');
+        return this.get('multiple') ? i18n.t('select_files') : i18n.t('select_file');
     }).property('multiple'),
     buttonStyle: null,
     buttonSize: 'small',
@@ -103,7 +103,7 @@ module.exports = Ember.Component.extend({
                 '<div class="file-uploader-overlay">'+
                 '<div class="content">'+
                 '<div class="drop-tip">'+this.get('dropTip')+'</div>'+
-                '<div class="escape-tip">'+i18n.t('file_uploader.escape_tip')+'</div>'+
+                '<div class="escape-tip">'+i18n.t('escape_tip')+'</div>'+
                 '</div>'+
                 '</div>'
             );
@@ -238,7 +238,7 @@ module.exports = Ember.Component.extend({
     },
 
     uploadButtonIsVisible: function() {
-        return (!this.get('inputSelector') && (this.get('multiple') || this.get('queue.length') == 0));
+        return (!this.get('inputSelector') && (this.get('multiple') || this.get('queue.length') === 0));
     }.property('inputSelector', 'multiple', 'queue.@each'),
 
     queueItemViewClass: require('./queue-item-view')

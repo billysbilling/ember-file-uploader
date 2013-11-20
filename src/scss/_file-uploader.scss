@@ -41,6 +41,11 @@
             margin-right: $tight-standard-padding;
             
             @include ellipsis;
+
+            .error {
+                white-space: normal;
+                color: $red;
+            }
         }
     
         .cancel {

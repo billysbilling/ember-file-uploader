@@ -1,6 +1,6 @@
 <div class="icon">
     {{#if isFailed}}
-        {{bb-tool icon="icons/cross" tip=error}}
+        {{bb-tool icon="icons/cross"}}
     {{else}}
         {{progress-circle progress=progress}}
     {{/if}}
@@ -8,8 +8,13 @@
 
 <div class="filename">
     {{file.name}} ({{view.formattedFileSize}})
+    {{#if isFailed}}
+        <div class="error">
+            {{error}}
+        </div>
+    {{/if}}
 </div>
 
 <div class="cancel">
-    {{bb-tool icon="icons/cross" action="abort" target=item tipT="ember_file_uploader.cancel_upload"}}
+    {{bb-tool icon="icons/trashcan" action="abort" target=item tipT="ember_file_uploader.cancel_upload"}}
 </div>

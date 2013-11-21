@@ -1,4 +1,6 @@
-var i18n = require('i18n').module('ember_file_uploader', require.resolve('../locales')),
+var i18nContext = require('i18n-context')('ember_file_uploader', require.resolve('../locales')),
+    t = i18nContext.t,
+    tProperty = i18nContext.tProperty,
     QueueItem = require('./queue-item'),
     manager = require('./manager'),
     config = require('./config');
@@ -14,16 +16,16 @@ module.exports = Ember.Component.extend({
     url: '/files',
 
     allowDrag: true,
-    dragTip: i18n.tProperty('dragTip', i18n.t('or_drag_and_drop')),
-    dropTip: i18n.tProperty('dropTip', i18n.t('drop_files_here')),
+    dragTip: tProperty('dragTip', t('or_drag_and_drop')),
+    dropTip: tProperty('dropTip', t('drop_files_here')),
     dropSelector: null,
 
     inputSelector: null,
 
     accept: null,
     
-    buttonText: i18n.tProperty('buttonText', function() {
-        return this.get('multiple') ? i18n.t('select_files') : i18n.t('select_file');
+    buttonText: tProperty('buttonText', function() {
+        return this.get('multiple') ? t('select_files') : t('select_file');
     }).property('multiple'),
     buttonStyle: null,
     buttonSize: 'small',
@@ -107,7 +109,7 @@ module.exports = Ember.Component.extend({
                 '<div class="file-uploader-overlay">'+
                 '<div class="content">'+
                 '<div class="drop-tip">'+this.get('dropTip')+'</div>'+
-                '<div class="escape-tip">'+i18n.t('escape_tip')+'</div>'+
+                '<div class="escape-tip">'+t('escape_tip')+'</div>'+
                 '</div>'+
                 '</div>'
             );
@@ -250,7 +252,12 @@ module.exports = Ember.Component.extend({
 
 module.exports.Batch = require('./batch');
 
-module.exports.lang = i18n.lang;
+module.exports.locale = i18nContext.locale;
+
+module.exports.lang = function() {
+    console.warn('.lang() is deprecated. Use .locale() instead');
+    return i18nContext.locale.apply(null, arguments);
+};
 
 module.exports.setHeader = function(key, value) {
     config.headers[key] = value;

@@ -19,6 +19,9 @@ module.exports = Ember.Component.extend({
     dropSelector: null,
 
     inputSelector: null,
+
+    accept: null,
+    
     buttonText: i18n.tProperty('buttonText', function() {
         return this.get('multiple') ? i18n.t('select_files') : i18n.t('select_file');
     }).property('multiple'),
@@ -60,14 +63,15 @@ module.exports = Ember.Component.extend({
         var self = this,
             selector = this.get('inputSelector'),
             parent,
-            input;
+            input,
+            accept = Em.Handlebars.Utils.escapeExpression(this.get('accept'));
         if (selector) {
             parent = this.findBySelector(selector, 'input parent');
             parent.addClass('file-uploader-input-parent');
         } else {
             parent = this.$('.file-uploader-input-parent');
         }
-        parent.append('<input type="file" class="file-uploader-input"' + (this.get('multiple') ? ' multiple' : '') + '/>');
+        parent.append('<input type="file" class="file-uploader-input" accept="'+accept+'"' + (this.get('multiple') ? ' multiple' : '') + '/>');
         input = parent.find('> .file-uploader-input');
         if (selector) {
             this.set('externalInput', input);

@@ -54,6 +54,7 @@ module.exports = Em.Object.extend(Em.Evented, {
                     if (payload.files && payload.files.length) {
                         file = BD.store.load(Billy.File, payload.files[0]);
                     }
+                    self.set('isProcessing', false);
                     self.set('isCompleted', true);
                     self.trigger('upload', file, payload);
                     self.trigger('done', self);

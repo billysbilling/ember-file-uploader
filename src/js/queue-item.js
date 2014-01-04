@@ -79,6 +79,7 @@ module.exports = Em.Object.extend(Em.Evented, {
         Em.run(function() {
             self.set('progress', 1);
             self.set('isProcessing', true);
+            self.set('isTransferring', false);
         });
     },
     onUploadError: function() {

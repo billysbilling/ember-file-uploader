@@ -234,13 +234,17 @@ module.exports = Ember.Component.extend({
             if (self.get('isDestroyed')) {
                 return;
             }
-            self.get('queue').removeObject(item);
+            self.removeQueueItem(item);
         });
         this.get('queue').pushObject(item);
         if (batch) {
             batch.pushObject(item);
         }
         manager.enqueue(item);
+    },
+
+    removeQueueItem: function(item) {
+        this.get('queue').removeObject(item);
     },
 
     uploadButtonIsVisible: function() {

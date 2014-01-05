@@ -16,14 +16,13 @@ module.exports = Em.ArrayProxy.extend({
     }.property('@each.isCompleted'),
 
     completedCount: function() {
-        //We use isProcessing, since it makes the progress bar look nicer
         return this.reduce(function(result, item) {
-            if (item.get('isProcessing')) {
+            if (item.get('isCompleted')) {
                 result++;
             }
             return result;
         }, 0);
-    }.property('@each.isProcessing'),
+    }.property('@each.isCompleted'),
 
     progress: function() {
         var totalSize = 0,

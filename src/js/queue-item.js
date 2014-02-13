@@ -70,7 +70,7 @@ module.exports = Em.Object.extend(Em.Evented, {
         var self = this;
         Em.run(function() {
             if (e.lengthComputable) {
-                self.set('progress', Math.ceil(e.loaded / e.total));
+                self.set('progress', Math.round((e.loaded / e.total) * 1000) / 1000);
             }
         });
     },

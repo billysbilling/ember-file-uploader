@@ -1,6 +1,9 @@
 {
   "name": "ember-file-uploader",
   "version": "0.0.1",
+  "dependencies": {
+    "function-proxy": "billysbilling/function-proxy#>=1.0 <2.0"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "billy-builder": "git://github.com/billysbilling/billy-builder.git"

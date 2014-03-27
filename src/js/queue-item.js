@@ -1,4 +1,5 @@
-var i18nContext = require('i18n-context')('ember_file_uploader', require.resolve('../locales')),
+var functionProxy = require('function-proxy'),
+    i18nContext = require('i18n-context')('ember_file_uploader', require.resolve('../locales')),
     t = i18nContext.t,
     config = require('./config');
 
@@ -22,10 +23,10 @@ module.exports = Em.Object.extend(Em.Evented, {
             additionalHeaders = config.headers;
         this.set('isTransferring', true);
         this.set('uploadRequest', uploadRequest);
-        uploadRequest.on('readystatechange', Billy.proxy(this.onReadyStateChange, this));
-        uploadRequest.on('progress', Billy.proxy(this.onUploadProgress, this));
-        uploadRequest.on('load', Billy.proxy(this.onUploadLoad, this));
-        uploadRequest.on('error', Billy.proxy(this.onUploadError, this));
+        uploadRequest.on('readystatechange', functionProxy(this.onReadyStateChange, this));
+        uploadRequest.on('progress', functionProxy(this.onUploadProgress, this));
+        uploadRequest.on('load', functionProxy(this.onUploadLoad, this));
+        uploadRequest.on('error', functionProxy(this.onUploadError, this));
         uploadRequest.setRequestHeader('X-Filename', file.name);
         uploadRequest.setRequestHeader('X-File-Size', file.size);
         uploadRequest.setRequestHeader('X-Thumbnail-Names', this.get('fileUploader.thumbnailNames'));

@@ -1,4 +1,5 @@
-var i18nContext = require('i18n-context')('ember_file_uploader', require.resolve('../locales')),
+var functionProxy = require('function-proxy'),
+    i18nContext = require('i18n-context')('ember_file_uploader', require.resolve('../locales')),
     t = i18nContext.t,
     tProperty = i18nContext.tProperty,
     QueueItem = require('./queue-item'),
@@ -126,13 +127,13 @@ module.exports = Ember.Component.extend({
     addOrRemoveDropTargetEvents: function(method) {
         var dropTarget = this.getDropTarget(),
             body = $(this.container.lookup('application:main').get('rootElement'));
-        body[method]('dragenter', Billy.proxy(this.onBodyDragEnter, this));
-        body[method]('dragleave', Billy.proxy(this.onBodyDragLeave, this));
-        body[method]('dragover', Billy.proxy(this.onBodyDragOver, this));
-        body[method]('drop', Billy.proxy(this.onBodyDrop, this));
-        dropTarget[method]('dragover', Billy.proxy(this.onDragOver, this));
-        dropTarget[method]('dragleave', Billy.proxy(this.onDragLeave, this));
-        dropTarget[method]('drop', Billy.proxy(this.onDrop, this));
+        body[method]('dragenter', functionProxy(this.onBodyDragEnter, this));
+        body[method]('dragleave', functionProxy(this.onBodyDragLeave, this));
+        body[method]('dragover', functionProxy(this.onBodyDragOver, this));
+        body[method]('drop', functionProxy(this.onBodyDrop, this));
+        dropTarget[method]('dragover', functionProxy(this.onDragOver, this));
+        dropTarget[method]('dragleave', functionProxy(this.onDragLeave, this));
+        dropTarget[method]('drop', functionProxy(this.onDrop, this));
     },
 
     onBodyDragEnter: function(e) {

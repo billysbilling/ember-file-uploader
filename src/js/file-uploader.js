@@ -4,7 +4,8 @@ var functionProxy = require('function-proxy'),
     tProperty = i18nContext.tProperty,
     QueueItem = require('./queue-item'),
     manager = require('./manager'),
-    config = require('./config');
+    config = require('./config'),
+    svg = require('ember-svg').get;
 
 module.exports = Ember.Component.extend({
     template: require('../templates/file-uploader'),
@@ -14,17 +15,22 @@ module.exports = Ember.Component.extend({
     queue: null,
     multiple: true,
 
+    isUploading: false,
+
     url: '/files',
 
     allowDrag: true,
     dragTip: tProperty('dragTip', t('or_drag_and_drop')),
     dropTip: tProperty('dropTip', t('drop_files_here')),
     dropSelector: null,
+    dropOverlaySelector: null,
+    dropAreaSize: 'large',
 
     inputSelector: null,
 
     accept: null,
-    
+
+    buttonIcon: null,
     buttonText: tProperty('buttonText', function() {
         return this.get('multiple') ? t('select_files') : t('select_file');
     }).property('multiple'),
@@ -102,14 +108,27 @@ module.exports = Ember.Component.extend({
             return this.$();
         }
     },
+    getDropOverlayTarget: function() {
+        var selector = this.get('dropOverlaySelector');
+        if (!selector) {
+            selector = this.get('dropSelector');
+        }
+        if (selector) {
+            return this.findBySelector(selector, 'drop overlay target');
+        } else {
+            return this.$();
+        }
+    },
     getDropOverlay: function() {
         var overlay = this.get('dropOverlay');
         if (!overlay) {
-            var dropTarget = this.getDropTarget();
+            var dropTarget = this.getDropOverlayTarget(),
+                dropAreaSize = this.get('dropAreaSize'),
+                iconSize = ['small', 'large'].indexOf(dropAreaSize) === -1 ? 'small' : dropAreaSize;
             dropTarget.append(
-                '<div class="file-uploader-overlay">'+
+                '<div class="file-uploader-overlay '+dropAreaSize+'">'+
                 '<div class="content">'+
-                '<div class="drop-tip">'+this.get('dropTip')+'</div>'+
+                '<div class="drop-tip"><div class="icon">'+svg('icons/arrow-down-'+iconSize)+'</div><div class="text">'+this.get('dropTip')+'</div></div>'+
                 '<div class="escape-tip">'+t('escape_tip')+'</div>'+
                 '</div>'+
                 '</div>'
@@ -170,9 +189,8 @@ module.exports = Ember.Component.extend({
         });
     },
     showDropOverlay: function() {
-        var dropTarget = this.getDropTarget(),
+        var dropTarget = this.getDropOverlayTarget(),
             overlay = this.getDropOverlay();
-        dropTarget.addClass('has-overlay');
         overlay.css('display', 'block');
         overlay.height(dropTarget.outerHeight());
         overlay.width(dropTarget.outerWidth());
@@ -183,9 +201,8 @@ module.exports = Ember.Component.extend({
         });
     },
     hideDropOverlay: function() {
-        var dropTarget = this.getDropTarget(),
+        var dropTarget = this.getDropOverlayTarget(),
             overlay = this.getDropOverlay();
-        dropTarget.removeClass('has-overlay');
         overlay.css('display', 'none');
     },
 
@@ -220,6 +237,7 @@ module.exports = Ember.Component.extend({
         if (!this.get('multiple') && this.get('queue.length') > 0) {
             return;
         }
+        this.set('isUploading', true);
         item = QueueItem.create({
             fileUploader: this,
             file: file
@@ -246,6 +264,9 @@ module.exports = Ember.Component.extend({
 
     removeQueueItem: function(item) {
         this.get('queue').removeObject(item);
+        if (this.get('queue.length') === 0) {
+            this.set('isUploading', false);
+        }
     },
 
     uploadButtonIsVisible: function() {

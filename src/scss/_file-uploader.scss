@@ -1,17 +1,28 @@
 @mixin file-uploader {
     $filelist-space: 5px;
-    
+
     .file-uploader {
-    
+
         .upload-button {
             &.hidden {
                 display: none;
             }
-            
+
             .file-uploader-input-parent {
                 float: left;
+
+                .icon {
+                    $icon-size: 10px;
+                    display: inline-block;
+                    width: $icon-size;
+                    height: $icon-size;
+
+                    .svg-main {
+                        fill: $blue;
+                    }
+                }
             }
-            
+
             .drag-tip {
                 float: left;
                 margin-left: 5px;
@@ -19,9 +30,9 @@
                 color: $blue-gray;
             }
         }
-        
+
     }
-    
+
     .file-list {
         > div {
             @include display-flex;
@@ -29,17 +40,17 @@
                 margin-bottom: $filelist-space;
             }
         }
-        
+
         .icon {
             margin-right: $tight-standard-padding;
             width: $line-height;
             height: $line-height;
         }
-    
+
         .filename {
             @include flex(1);
             margin-right: $tight-standard-padding;
-            
+
             @include ellipsis;
 
             .error {
@@ -47,15 +58,15 @@
                 color: $red;
             }
         }
-    
+
         .cancel {
             .tool {
                 display: block;
             }
         }
     }
-    
-    
+
+
     .file-uploader-input-parent {
         position: relative;
         display: inline-block;
@@ -76,22 +87,22 @@
         height: 100%;
         cursor: pointer;
     }
-    
+
     .file-uploader-overlay {
         background: rgba($blue-gray-dark, 0.8);
         display: none;
         position: absolute;
         z-index: 5000;
         overflow: hidden;
-        
+
         &.hover {
             @include background(radial-gradient(rgba($blue-gray-dark, 0.4), rgba($blue-gray-dark, 0.8)));
         }
-    
+
         .content {
             $drop-tip-height: 70px;
             $escape-tip-height: $line-height;
-            
+
             position: absolute;
             top: 50%;
             left: 0px;
@@ -100,18 +111,84 @@
             padding: 0px 10px;
             margin-top: -1 * ($drop-tip-height + $escape-tip-height) / 2;
             color: #fff;
-            
+
             .drop-tip {
                 font-size: 60px;
                 font-weight: 200;
                 line-height: $drop-tip-height;
                 @include ellipsis;
+
+                .icon {
+                    $icon-size: 44px;
+                    $icon-v-spacing: 4px;
+                    $icon-h-spacing: 30px;
+                    @include inline-block;
+                    padding-top: $icon-v-spacing;
+                    padding-right: $icon-h-spacing;
+                    width: $icon-size + $icon-h-spacing;
+                    height: $icon-size + $icon-v-spacing;
+
+                    .svg-main {
+                        fill: #fff;
+                    }
+                }
+                .text {
+                    @include inline-block;
+                }
             }
-            
+
             .escape-tip {
                 font-weight: 600;
                 line-height: $escape-tip-height;
                 @include ellipsis;
+            }
+        }
+
+        $drop-tip-height: 30px;
+        $icon-size: 15px;
+        &.small, &.tiny {
+            border-radius: $standard-border-radius;
+
+            .content {
+                margin-top: -1 * ($drop-tip-height) / 2;
+
+                .drop-tip {
+                    font-size: 24px;
+                    line-height: $drop-tip-height;
+
+                    .icon {
+                        $icon-v-spacing: 1px;
+                        $icon-h-spacing: 10px;
+                        padding-top: $icon-v-spacing;
+                        padding-right: $icon-h-spacing;
+                        width: $icon-size + $icon-h-spacing;
+                        height: $icon-size + $icon-v-spacing;
+
+                        .svg-main {
+                            fill: #fff;
+                        }
+                    }
+                }
+                .escape-tip {
+                    display: none;
+                }
+            }
+        }
+        &.tiny {
+            .content {
+                .drop-tip {
+                    line-height: $drop-tip-height - 2;
+
+                    .icon {
+                        padding-top: 0;
+                        padding-right: 0;
+                        width: $icon-size;
+                        height: $icon-size;
+                    }
+                    .text {
+                        display: none;
+                    }
+                }
             }
         }
     }

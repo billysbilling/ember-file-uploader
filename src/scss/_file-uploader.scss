@@ -71,6 +71,9 @@
         position: relative;
         display: inline-block;
         overflow: hidden;
+        //Fix for properly displaying button shadow
+        margin: -2px;
+        padding: 2px;
         .button {
             position: relative;
             z-index: 1;
@@ -89,13 +92,13 @@
     }
 
     .file-uploader-overlay {
-        background: rgba($blue-gray-dark, 0.8);
+        background: rgba($blue-gray-xdark, 0.8);
         display: none;
         position: absolute;
         overflow: hidden;
 
         &.hover {
-            @include background(radial-gradient(rgba($blue-gray-dark, 0.4), rgba($blue-gray-dark, 0.8)));
+            @include background(radial-gradient(rgba($blue-gray-xdark, 0.4), rgba($blue-gray-xdark, 0.8)));
         }
 
         .content {

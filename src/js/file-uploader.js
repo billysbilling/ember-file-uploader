@@ -1,4 +1,5 @@
 var functionProxy = require('function-proxy'),
+    highestZIndex = require('highest-z-index'),
     i18nContext = require('i18n-context')('ember_file_uploader', require.resolve('../locales')),
     t = i18nContext.t,
     tProperty = i18nContext.tProperty,
@@ -192,6 +193,7 @@ module.exports = Ember.Component.extend({
         var dropTarget = this.getDropOverlayTarget(),
             overlay = this.getDropOverlay();
         overlay.css('display', 'block');
+        overlay.css('z-index', 1 + highestZIndex(overlay.siblings()));
         overlay.height(dropTarget.outerHeight());
         overlay.width(dropTarget.outerWidth());
         overlay.position({

@@ -1,6 +1,6 @@
 {
   "name": "ember-file-uploader",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "homepage": "https://github.com/billysbilling/ember-file-uploader",
   "main": "src/js/file-uploader.js",
   "billy-builder": {

@@ -51,7 +51,7 @@
             @include flex(1);
             margin-right: $tight-standard-padding;
 
-            @include ellipsis;
+            text-overflow: ellipsis;
 
             .error {
                 white-space: normal;
@@ -85,7 +85,7 @@
         z-index: 2;
         top: 0px;
         right: 0px;
-        @include opacity(0);
+        opacity: 0;
         width: 1000px; //Make it go all the way to the left, since the button's cursor can't be styled.
         height: 100%;
         cursor: pointer;
@@ -98,7 +98,7 @@
         overflow: hidden;
 
         &.hover {
-            @include background(radial-gradient(rgba($blue-gray-xdark, 0.4), rgba($blue-gray-xdark, 0.8)));
+            background: radial-gradient(rgba($blue-gray-xdark, 0.4), rgba($blue-gray-xdark, 0.8));
         }
 
         .content {
@@ -118,13 +118,13 @@
                 font-size: 60px;
                 font-weight: 200;
                 line-height: $drop-tip-height;
-                @include ellipsis;
+                text-overflow: ellipsis;
 
                 .icon {
                     $icon-size: 44px;
                     $icon-v-spacing: 4px;
                     $icon-h-spacing: 30px;
-                    @include inline-block;
+                    display: inline-block;
                     padding-top: $icon-v-spacing;
                     padding-right: $icon-h-spacing;
                     width: $icon-size + $icon-h-spacing;
@@ -135,14 +135,14 @@
                     }
                 }
                 .text {
-                    @include inline-block;
+                    display: inline-block;
                 }
             }
 
             .escape-tip {
                 font-weight: 600;
                 line-height: $escape-tip-height;
-                @include ellipsis;
+                text-overflow: ellipsis;
             }
         }
 

@@ -8,14 +8,14 @@
     {{/if}}
 {{/unless}}
 
-<div {{bindAttr class=":upload-button uploadButtonIsVisible::hidden"}}>
+<div {{bind-attr class=":upload-button uploadButtonIsVisible::hidden"}}>
     <div class="file-uploader-input-parent">
         {{#if buttonIcon}}
             <div class="icon">
                 {{svgb buttonIcon}}
             </div>
         {{/if}}
-        <button {{bindAttr class=":button buttonStyle buttonSize"}}>{{buttonText}}</button>
+        <button {{bind-attr class=":button buttonStyle buttonSize"}}>{{buttonText}}</button>
     </div>
     {{#if allowDrag}}
         <div class="drag-tip">{{dragTip}}</div>

@@ -9,7 +9,7 @@ var functionProxy = require('function-proxy'),
     svg = require('ember-svg').get;
 
 module.exports = Ember.Component.extend({
-    template: require('../templates/file-uploader'),
+    layout: require('../templates/file-uploader'),
 
     classNameBindings: [':file-uploader'],
 

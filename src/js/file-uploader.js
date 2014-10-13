@@ -19,6 +19,8 @@ module.exports = Ember.Component.extend({
     isUploading: false,
 
     url: '/files',
+    
+    headers: null,
 
     allowDrag: true,
     dragTip: tProperty('dragTip', t('or_drag_and_drop')),

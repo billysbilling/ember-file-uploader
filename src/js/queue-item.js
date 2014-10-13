@@ -20,7 +20,8 @@ module.exports = Em.Object.extend(Em.Evented, {
         var file = this.get('file'),
             url = this.get('fileUploader.url'),
             uploadRequest = new FileUploadRequest('POST', url, file),
-            additionalHeaders = config.headers;
+            additionalHeaders = config.headers,
+            uploaderHeaders = this.get('fileUploader.headers');
         this.set('isTransferring', true);
         this.set('uploadRequest', uploadRequest);
         uploadRequest.on('readystatechange', functionProxy(this.onReadyStateChange, this));
@@ -33,6 +34,11 @@ module.exports = Em.Object.extend(Em.Evented, {
         for (var k in additionalHeaders) {
             if (additionalHeaders.hasOwnProperty(k)) {
                 uploadRequest.setRequestHeader(k, additionalHeaders[k]);
+            }
+        }
+        for (var k in uploaderHeaders) {
+            if (uploaderHeaders.hasOwnProperty(k)) {
+                uploadRequest.setRequestHeader(k, uploaderHeaders[k]);
             }
         }
         uploadRequest.send();

@@ -18,8 +18,10 @@ module.exports = Ember.Component.extend({
 
     isUploading: false,
 
-    url: '/files',
+    method: 'POST',
     
+    url: '/files',
+
     headers: null,
 
     allowDrag: true,

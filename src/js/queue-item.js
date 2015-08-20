@@ -18,8 +18,9 @@ module.exports = Em.Object.extend(Em.Evented, {
 
     upload: function() {
         var file = this.get('file'),
+            method = this.get('fileUploader.method'),
             url = this.get('fileUploader.url'),
-            uploadRequest = new FileUploadRequest('POST', url, file),
+            uploadRequest = new FileUploadRequest(method, url, file),
             additionalHeaders = config.headers,
             uploaderHeaders = this.get('fileUploader.headers');
         this.set('isTransferring', true);

@@ -19,7 +19,7 @@ module.exports = Ember.Component.extend({
     isUploading: false,
 
     method: 'POST',
-    
+
     url: '/files',
 
     headers: null,
@@ -45,6 +45,8 @@ module.exports = Ember.Component.extend({
     batch: null,
 
     thumbnailNames: '',
+
+    abortOnError: false,
 
     setupQueue: function() {
         this.set('queue', []);
@@ -252,6 +254,11 @@ module.exports = Ember.Component.extend({
             BD.store.sideload(payload);
             self.sendAction('didUploadFile', {
                 file: file,
+                payload: payload
+            });
+        });
+        item.on('error', function(payload) {
+            self.sendAction('uploadFailed', {
                 payload: payload
             });
         });

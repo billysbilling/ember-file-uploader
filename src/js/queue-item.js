@@ -32,12 +32,13 @@ module.exports = Em.Object.extend(Em.Evented, {
         uploadRequest.setRequestHeader('X-Filename', file.name);
         uploadRequest.setRequestHeader('X-File-Size', file.size);
         uploadRequest.setRequestHeader('X-Thumbnail-Names', this.get('fileUploader.thumbnailNames'));
-        for (var k in additionalHeaders) {
+        var k
+        for (k in additionalHeaders) {
             if (additionalHeaders.hasOwnProperty(k)) {
                 uploadRequest.setRequestHeader(k, additionalHeaders[k]);
             }
         }
-        for (var k in uploaderHeaders) {
+        for (k in uploaderHeaders) {
             if (uploaderHeaders.hasOwnProperty(k)) {
                 uploadRequest.setRequestHeader(k, uploaderHeaders[k]);
             }
@@ -52,7 +53,7 @@ module.exports = Em.Object.extend(Em.Evented, {
                 file;
             if (uploadRequest.readyState === 4) {
                 try {
-                    payload = $.parseJSON(uploadRequest.responseText);
+                    payload = JSON.parse(uploadRequest.responseText);
                 } catch(exception) {
                     //Do nothing, transfer will fail anyway
                 }
@@ -67,9 +68,9 @@ module.exports = Em.Object.extend(Em.Evented, {
                     self.trigger('upload', file, payload);
                     self.trigger('done', self);
                 } else if (uploadRequest.status === 422) {
-                    self.handleError(payload.errorMessage);
+                    self.handleError(payload, payload.errorMessage);
                 } else {
-                    self.handleError();
+                    self.handleError(payload);
                 }
             }
         });
@@ -96,11 +97,14 @@ module.exports = Em.Object.extend(Em.Evented, {
             self.handleError();
         });
     },
-    handleError: function(message) {
+    handleError: function(payload, message) {
         this.set('isFailed', true);
         this.set('isTransferring', false);
         this.set('error', message || t('upload_failed'));
-        this.trigger('error');
+        this.trigger('error', payload);
+        if (this.get('fileUploader.abortOnError')) {
+            this.trigger('done', this);
+        }
     },
 
     abort: function() {

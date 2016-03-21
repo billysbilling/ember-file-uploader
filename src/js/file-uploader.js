@@ -105,6 +105,13 @@ module.exports = Ember.Component.extend({
         parent.mouseleave(function() {
             parent.find('.button').removeClass('hover');
         });
+        //Add .focus class to the upload button, when the input is focused for the same reason
+        input.focus(function() {
+            parent.find('.button').addClass('focus');
+        });
+        input.blur(function() {
+            parent.find('.button').removeClass('focus');
+        });
     },
 
     getDropTarget: function() {

@@ -2,4 +2,4 @@
 # To make changes, update the configuration in https://github.com/ageras-com/tf-github
 # Source: shine-foundation/tf-github-modules, modules/components/codeowners
 
-* @billysbilling/pt-eng-acctcore-bookkeeping
+* @billysbilling/pt-eng-acctcore-bookkeeping @billysbilling/pt-eng-acctcore-reporting @billysbilling/pt-eng-acctcore-staffengineer
